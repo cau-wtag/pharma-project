@@ -2,33 +2,31 @@ import java.time.LocalDate;
 
 public class TestAllExceptions {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PrescriptionReuseException {
         
-        System.out.println("TESTING DOMAIN EXCEPTIONS");
+        System.out.println("TESTING  EXCEPTIONS");
 
-        // Test 1: Controlled Substance Violation
         try {
             checkDuplicatePrescription("RX-1001", true);
         } catch (PrescriptionReuseException e) {
-            System.err.println("CAUGHT RULE 1: " + e.getMessage());
+            System.err.println("CAUGHT ULE 1: " + e.getMessage());
         }
 
-        // Test 2: Expired Stock Violation
         try {
             checkBatchExpiry("BATCH-99", LocalDate.of(2025, 1, 1)); // Past date
         } catch (ExpiredStockException e) {
             System.err.println("CAUGHT RULE 2: " + e.getMessage());
         }
 
-        // Test 3: Drug Interaction Violation
         try {
             checkInteraction("Aspirin", "Warfarin");
         } catch (DrugInteractionException e) {
             System.err.println("CAUGHT RULE 3: " + e.getMessage());
         }
+
+        checkDuplicatePrescription("RX-9999", true);
     }
 
-    // --- Helper Validation Methods ---
 
     public static void checkDuplicatePrescription(String rxId, boolean alreadyFulfilled) 
             throws PrescriptionReuseException {
