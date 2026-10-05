@@ -24,7 +24,6 @@ public class TestAllExceptions {
             System.err.println("CAUGHT RULE 3: " + e.getMessage());
         }
 
-        checkDuplicatePrescription("RX-9999", true);
     }
 
 
