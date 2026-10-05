@@ -1,0 +1,33 @@
+name: Java CI Pipeline
+
+# Trigger the workflow on pushes or pull requests targeting main or testing branches
+on:
+  push:
+    branches: [ "main", "testing" ]
+  pull_request:
+    branches: [ "main", "testing" ]
+
+jobs:
+  build-and-test:
+    # Use a fresh Ubuntu Linux runner in the cloud
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Download your source code onto the runner
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # Step 2: Install Amazon Corretto JDK 25 on the runner
+      - name: Set up JDK 25 (Amazon Corretto)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'corretto'
+
+      # Step 3: Compile all Java source files
+      - name: Compile Java Source Files
+        run: javac *.java
+
+      # Step 4: Execute domain safety tests
+      - name: Run Exception Safety Tests
+        run: java TestAllExceptions
