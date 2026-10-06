@@ -29,5 +29,5 @@ jobs:
         run: javac *.java
 
       # Step 4: Execute domain safety tests
-      - name: Run Exception Safety Tests
-        run: java TestAllExceptions
+      - name: Run Safety Tests
+        run: java MainApp
