@@ -1,15 +1,15 @@
 import java.time.LocalDate;
 
-public class TestAllExceptions {
+public class MainApp {
 
-    public static void main(String[] args) throws PrescriptionReuseException {
+    public static void main(String[] args) {
         
         System.out.println("TESTING  EXCEPTIONS");
 
         try {
             checkDuplicatePrescription("RX-1001", true);
         } catch (PrescriptionReuseException e) {
-            System.err.println("CAUGHT ULE 1: " + e.getMessage());
+            System.err.println("CAUGHT RULE 1: " + e.getMessage());
         }
 
         try {
@@ -23,6 +23,28 @@ public class TestAllExceptions {
         } catch (DrugInteractionException e) {
             System.err.println("CAUGHT RULE 3: " + e.getMessage());
         }
+
+        System.out.println("\n-----------------------------------------");
+
+        
+        System.out.println("---> 2. Testing Generic Medication Formulations...");
+
+        // Liquid Generic Instance
+        Medication<Liquid> amoxicillin = new Medication<>(
+            "MOH-REG-2026-0412", 
+            "Amoxicillin Oral Suspension", 
+            new Liquid(150.0, "250mg/5mL")
+        );
+
+        // Tablet Generic Instance
+        Medication<Tablet> ibuprofen = new Medication<>(
+            "MOH-REG-2025-0891", 
+            "Ibuprofen Extra Strength", 
+            new Tablet(100, 400)
+        );
+
+        System.out.println(amoxicillin);
+        System.out.println(ibuprofen);
 
     }
 
